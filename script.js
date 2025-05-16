@@ -56,11 +56,11 @@ function playGame() {
 
   console.log("\n=== Game Over ===");
   if (humanScore > computerScore) {
-    console.log("CONGRATS! You won the game!");
+    alert("CONGRATS! You won the game!");
   } else if (computerScore > humanScore) {
-    console.log("The computer won the game. Better luck next time!");
+    alert("The computer won the game. Better luck next time!");
   } else {
-    console.log("The game is a tie!");
+    alert("The game is a tie!");
   }
 }
 
