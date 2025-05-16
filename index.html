@@ -1,10 +1,97 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Jogo na Consola</title>
+  <meta charset="UTF-8">
+  <title>Play Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #score {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    #sendBtn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-    <script src="script.js"></script>
+    <h1>Play Game</h1>
+
+  <label for="userInput">Your choice:</label>
+  <input type="text" id="userInput" placeholder="rock, paper, or scissors">
+  <button id="sendBtn">Send</button>
+
+  <p id="botChoiceText"></p>
+  <p id="roundResult"></p>
+  <p id="score">Score: Human 0 - Computer 0</p>
+  <p id="finalResult" style="font-weight: bold;"></p>
+
+  <script src="script.js"></script>
+
+  <script>
+    let roundCount = 0;
+
+
+    window.getHumanChoice = function () {
+      const value = document.getElementById("userInput").value.trim().toLowerCase();
+      return value;
+    };
+
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      if (roundCount >= 5) return;
+
+      const humanChoice = getHumanChoice();
+      if (!["rock", "paper", "scissors"].includes(humanChoice)) {
+        alert("Please enter rock, paper, or scissors.");
+        return;
+      }
+
+      const computerChoice = getComputerChoice();
+      const prevHumanScore = humanScore;
+      const prevComputerScore = computerScore;
+
+      playRound(humanChoice, computerChoice);
+      roundCount++;
+
+
+      document.getElementById("botChoiceText").textContent = "Computer chose: " + computerChoice;
+
+      let resultText = "";
+      if (humanScore > prevHumanScore) {
+        resultText = "You won this round!";
+      } else if (computerScore > prevComputerScore) {
+        resultText = "You lost this round.";
+      } else {
+        resultText = "It's a tie.";
+      }
+      document.getElementById("roundResult").textContent = resultText;
+
+      document.getElementById("score").textContent =
+        "Score: Human " + humanScore + " - Computer " + computerScore;
+
+      if (roundCount === 5) {
+        document.getElementById("sendBtn").disabled = true;
+        let finalMessage = "";
+        if (humanScore > computerScore) {
+          finalMessage = " CONGRATS! You won the game!";
+        } else if (computerScore > humanScore) {
+          finalMessage = " The computer won the game. Better luck next time!";
+        } else {
+          finalMessage = " The game is a tie!";
+        }
+        document.getElementById("finalResult").textContent = finalMessage;
+      }
+
+
+    });
+
+    console.log("Root element tag:", document.documentElement.tagName);
+  </script>
+
 </body>
 </html>
