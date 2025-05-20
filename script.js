@@ -48,7 +48,7 @@ function playRound(humanChoice, computerChoice) {
 
 function playGame() {
   for (let i = 1; i <= 5; i++) {
-    console.log("Ronda " + i);
+    console.log("Round" + i);
     const humanChoice = getHumanChoice();
     const computerChoice = getComputerChoice();
     playRound(humanChoice, computerChoice);
